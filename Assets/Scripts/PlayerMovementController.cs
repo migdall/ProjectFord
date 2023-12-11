@@ -68,7 +68,6 @@ public class PlayerMovementController : MonoBehaviour
 
     private void HandleAnimation(Vector2 moveVector)
     {
-        Debug.Log(moveVector.magnitude);
         if (moveVector.magnitude > 0)
         {
             animator.SetBool("isWalking", true);
@@ -78,7 +77,6 @@ public class PlayerMovementController : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
 
-        Debug.Log(runAction.ReadValue<float>());
         if (moveVector.magnitude >= 1.0f && runAction.ReadValue<float>() > 0)
         {
             animator.SetBool("isRunning", true);
@@ -99,15 +97,5 @@ public class PlayerMovementController : MonoBehaviour
         transform.forward = moveDirection;
         controller.Move(moveVector);
         transform.position = new Vector3(transform.position.x, PLAYER_HEIGHT, transform.position.z);
-    }
-
-    private void OnEnable()
-    {
-        controls.ActivateInput();
-    }
-
-    private void OnDisable()
-    {
-        controls.DeactivateInput();
     }
 }
