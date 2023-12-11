@@ -11,8 +11,12 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     private CinemachineFreeLook virtualCamera;
 
+    [SerializeField]
+    private Animator animator;
+
     private PlayerInput controls;
     private InputAction moveAction;
+    private InputAction runAction;
 
     private CharacterController controller;
 
@@ -21,6 +25,9 @@ public class PlayerMovementController : MonoBehaviour
     {
         controls = GetComponent<PlayerInput>();
         moveAction = controls.actions.FindAction("Move");
+        runAction = controls.actions.FindAction("Run");
+
+        animator = GetComponent<Animator>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -56,6 +63,30 @@ public class PlayerMovementController : MonoBehaviour
 
         Move(moveControllerVector, movementDirection);
         LookAround(newRotation);
+        HandleAnimation(moveInput);
+    }
+
+    private void HandleAnimation(Vector2 moveVector)
+    {
+        Debug.Log(moveVector.magnitude);
+        if (moveVector.magnitude > 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
+        Debug.Log(runAction.ReadValue<float>());
+        if (moveVector.magnitude >= 1.0f && runAction.ReadValue<float>() > 0)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     private void LookAround(Quaternion newRotation)
