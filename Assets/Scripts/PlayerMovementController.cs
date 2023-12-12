@@ -11,7 +11,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     private CinemachineFreeLook virtualCamera;
 
-    [SerializeField]
     private Animator animator;
 
     private PlayerInput controls;
