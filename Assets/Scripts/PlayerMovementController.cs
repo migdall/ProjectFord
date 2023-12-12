@@ -5,7 +5,11 @@ using UnityEngine.InputSystem;
 public class PlayerMovementController : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 5;
+    private float speed = 3;
+    [SerializeField]
+    private float walkSpeed = 3;
+    [SerializeField]
+    private float runSpeed = 10;
     private const float PLAYER_HEIGHT = 0f;
 
     [SerializeField]
@@ -70,6 +74,7 @@ public class PlayerMovementController : MonoBehaviour
         if (moveVector.magnitude > 0)
         {
             animator.SetBool("isWalking", true);
+            speed = walkSpeed;
         }
         else
         {
@@ -79,6 +84,7 @@ public class PlayerMovementController : MonoBehaviour
         if (moveVector.magnitude >= 1.0f && runAction.ReadValue<float>() > 0)
         {
             animator.SetBool("isRunning", true);
+            speed = runSpeed;
         }
         else
         {
