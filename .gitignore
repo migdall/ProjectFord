@@ -60,3 +60,6 @@ crashlytics-build.properties
 
 Assets/Rhinox Studio.meta
 Assets/Rhinox Studio/
+*.meta
+Assets/Heat - Complete Modern UI/
+Assets/TextMesh Pro/
