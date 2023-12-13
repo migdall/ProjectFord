@@ -6,19 +6,17 @@ public class PlayerRespawnController : MonoBehaviour
     [SerializeField]
     private Vector3 respawnPosition;
     [SerializeField]
-    private float respawnHeight = 0f;
-    [SerializeField]
-    private Transform playerTransform;
+    private float respawnHeight;
 
     // Update is called once per frame
     void Update()
     {
-        if (playerTransform.position.y < respawnHeight)
+        if (transform.position.y < respawnHeight)
         {
             Debug.Log("Player fell off the map, respawning...");
-            CharacterController controller = playerTransform.GetComponent<CharacterController>();
+            CharacterController controller = gameObject.GetComponentInParent<CharacterController>();
             controller.enabled = false;
-            playerTransform.position = respawnPosition;
+            transform.parent.position = respawnPosition;
             controller.enabled = true;
         }
     }
