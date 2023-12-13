@@ -13,7 +13,7 @@ public class PlayerMovementController : MonoBehaviour
     private const float PLAYER_HEIGHT = 0f;
 
     [SerializeField]
-    private CinemachineFreeLook virtualCamera;
+    private Camera virtualCamera;
 
     private Animator animator;
 
@@ -47,25 +47,40 @@ public class PlayerMovementController : MonoBehaviour
         // Create a Vector3 of the input ignoring the movement in the Y-axis
         Vector3 inputVector = new Vector3(moveInput.x, 0f, moveInput.y);
 
-        inputVector *= speed;
-        inputVector = transform.TransformDirection(inputVector);
+        float inputMagnitude = Mathf.Clamp01(inputVector.magnitude);
+        float currentSpeed = inputMagnitude * speed;
+
+        Vector3 getMoveDir = Quaternion.AngleAxis(virtualCamera.transform.rotation.eulerAngles.y, Vector3.up) * inputVector;
+        getMoveDir.Normalize();
+
+        Vector3 velocity = getMoveDir * currentSpeed;
+
+        if (getMoveDir != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(getMoveDir, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 5 * Time.deltaTime);
+            transform.forward = Vector3.ProjectOnPlane(virtualCamera.transform.forward, Vector3.up);
+        }
+
+        // inputVector *= speed;
+        // inputVector = transform.TransformDirection(inputVector);
 
         // Move the player via the character controller
-        Vector3 moveControllerVector = inputVector * Time.deltaTime;
+        // Vector3 moveControllerVector = inputVector * Time.deltaTime;
 
         // Rotate the body of the player based on the direction the camera's
         // transform is facing
-        Vector3 movementDirection = Vector3.ProjectOnPlane(virtualCamera.transform.forward, Vector3.up);
+        // Vector3 movementDirection = Vector3.ProjectOnPlane(virtualCamera.transform.forward, Vector3.up);
 
-        Vector3 cameraDirection = virtualCamera.transform.forward;
-        cameraDirection.y = 0;
+        // Vector3 cameraDirection = virtualCamera.transform.forward;
+        // cameraDirection.y = 0;
 
-        Vector3 relativePosition = transform.position - virtualCamera.transform.position;
-        Quaternion relativePositionNormalized = Quaternion.LookRotation(relativePosition.normalized);
-        Quaternion newRotation = new Quaternion(0, relativePositionNormalized.y, 0, relativePositionNormalized.w);
-
-        Move(moveControllerVector, movementDirection);
-        LookAround(newRotation);
+        // Vector3 relativePosition = transform.position - virtualCamera.transform.position;
+        // Quaternion relativePositionNormalized = Quaternion.LookRotation(relativePosition.normalized);
+        // Quaternion newRotation = new Quaternion(0, relativePositionNormalized.y, 0, relativePositionNormalized.w);
+        
+        Move(velocity);
+        // LookAround(newRotation);
         HandleAnimation(moveInput);
     }
 
@@ -94,13 +109,15 @@ public class PlayerMovementController : MonoBehaviour
 
     private void LookAround(Quaternion newRotation)
     {
-        transform.rotation = newRotation;
+        // transform.rotation = newRotation;
+        // transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, Time.deltaTime * 10);
+        // transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10);
     }
 
-    private void Move(Vector3 moveVector, Vector3 moveDirection)
+    private void Move(Vector3 moveVector)
     {
-        transform.forward = moveDirection;
-        controller.Move(moveVector);
+        // transform.forward = moveDirection;
+        controller.Move(moveVector * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, PLAYER_HEIGHT, transform.position.z);
     }
 }
