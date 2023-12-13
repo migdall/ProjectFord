@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenAndClose",
+                    "type": "Button",
+                    "id": "af982727-c9c5-47ee-bf25-74dc8eaa4eee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -156,6 +165,28 @@
                     "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "668644c1-3408-438b-b384-68b6e3f1beab",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "OpenAndClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8604bfc9-2a93-457f-9664-92a96b82f081",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "OpenAndClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -204,8 +235,17 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "9e1e7db2-6b60-4987-ae82-c220d6f76d0a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenAndClose",
+                    "type": "Button",
+                    "id": "3d565f9c-a4ae-4634-9986-07cb522ba3d9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -215,52 +255,30 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "6d3cd672-dd00-4754-959b-33e8e8fb2464",
-                    "path": "<Keyboard>/anyKey",
+                    "id": "084d3951-dd34-4d3f-94ac-830c72f81bbb",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Move",
+                    "action": "OpenAndClose",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "47a2e5c7-6e3b-49b9-a3b0-e23cedfdcc99",
-                    "path": "<Gamepad>/dpad/down",
+                    "id": "bc6c41c5-8b0b-48c1-a5eb-eeb189a70471",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Move",
+                    "action": "OpenAndClose",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "de9df1a1-760b-4d31-8660-d653430364d4",
-                    "path": "<Gamepad>/dpad/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2ee6b2ce-80c1-4e2d-b6b2-b0d10ca7fff0",
-                    "path": "<Gamepad>/leftStick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "73363a6b-5610-4d27-90af-8ff29306aa3d",
-                    "path": "<Gamepad>/leftStick/down",
+                    "id": "632fd4e2-f1c0-4cc1-891f-09696a30c043",
+                    "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
