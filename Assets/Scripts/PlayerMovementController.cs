@@ -32,8 +32,8 @@ public class PlayerMovementController : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
 
         controller = GetComponent<CharacterController>();
     }
@@ -50,7 +50,7 @@ public class PlayerMovementController : MonoBehaviour
         float inputMagnitude = Mathf.Clamp01(inputVector.magnitude);
         float currentSpeed = inputMagnitude * speed;
 
-        Vector3 getMoveDir = Quaternion.AngleAxis(virtualCamera.transform.rotation.eulerAngles.y, Vector3.up) * inputVector;
+        Vector3 getMoveDir = Quaternion.AngleAxis(virtualCamera.transform.rotation.eulerAngles.y, Vector3.up) * inputVector * Time.deltaTime;
         getMoveDir.Normalize();
 
         Vector3 velocity = getMoveDir * currentSpeed;
@@ -78,7 +78,7 @@ public class PlayerMovementController : MonoBehaviour
         // Vector3 relativePosition = transform.position - virtualCamera.transform.position;
         // Quaternion relativePositionNormalized = Quaternion.LookRotation(relativePosition.normalized);
         // Quaternion newRotation = new Quaternion(0, relativePositionNormalized.y, 0, relativePositionNormalized.w);
-        
+
         Move(velocity);
         // LookAround(newRotation);
         HandleAnimation(moveInput);

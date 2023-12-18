@@ -28,6 +28,7 @@ public class GameMenuManager : MonoBehaviour
                 isPaused = false;
                 pauseMenu.SetActive(false);
                 player.GetComponent<PlayerMovementController>().enabled = true;
+                EventSystem.current.SetSelectedGameObject(null);
             }
             else
             {
